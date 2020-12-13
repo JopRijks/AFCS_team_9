@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1607685433065.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "825041244",
+    "id" : "18F5B060",
+    "lastKnownWriteTime" : 1607688391,
+    "last_content_update" : 1607688391327,
+    "path" : "~/OneDrive - UvA/Informatiekunde/Master/Blok 2/Applied forecasting in complex systems/Final_Project/sales-time-series-forecasting-ca-afcs2020/afcs_final_project.R",
+    "project_path" : "afcs_final_project.R",
+    "properties" : {
+        "cursorPosition" : "22,0",
+        "scrollLine" : "2",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

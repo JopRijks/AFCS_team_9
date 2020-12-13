@@ -1,0 +1,33 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1607685833800.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "CA1785E6",
+    "lastKnownWriteTime" : 140707423584259,
+    "last_content_update" : 1607685833800,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "F64A2801",
+        "caption" : "sales_train_evaluation_afcs2020",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=sales_train_evaluation_afcs2020&cache_key=F64A2801",
+        "displayedObservations" : "149",
+        "environment" : "",
+        "expression" : "sales_train_evaluation_afcs2020",
+        "object" : "sales_train_evaluation_afcs2020",
+        "preview" : "0",
+        "totalObservations" : "149",
+        "variables" : "1942"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}
