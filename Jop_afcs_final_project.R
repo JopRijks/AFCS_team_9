@@ -15,37 +15,40 @@ price <- data.frame(read_csv("sell_prices_afcs2020.csv"))
 
 # extra_data
 sales_train_eva <- read_csv("sales_train_evaluation_afcs2020.csv")
-sample_submission_afcs2020 <- read_csv("sample_submission_afcs2020.csv")
+sample <- data.frame(read_csv("sample_submission_afcs2020.csv"))
 
+h=28
 
 num = 1
 
 s_train <- t(sales_train[num,])
 name = s_train[1,] 
 s_train <- data.frame(s_train[-1,])
-colnames(s_train) = "product" #name
+colnames(s_train) = "sales" #name
 
-train <- merge.data.frame(s_train, calendar, by.x = 0, by.y = "d")
-train$d <- as.integer(gsub('d_', '', train$Row.names))
-#train$date <- as.Date(train$date , format = "%m/%d/%y")
+sales_days <- merge.data.frame(s_train, calendar, by.x = 0, by.y = "d")
+sales_days$d <- as.integer(gsub('d_', '', sales_days$Row.names))
 
 name <- substr(as.character(name), start = 1, stop = 13)
 price_select <- price
 price_select <- filter(price_select, item_id == name)
-train_f <- merge.data.frame(train, price_select, by.x = "wm_yr_wk", by.y = "wm_yr_wk")
+train_draft <- merge.data.frame(sales_days, price_select, by.x = "wm_yr_wk", by.y = "wm_yr_wk")
+train <- select(train_draft, sales, d ,sell_price, wday, event_name_1, event_type_1, snap_CA)
 
+xreg <- as.numeric(train$sell_price)
+model <- arima(as.numeric(train$sales), order=c(0,0,1))
+fcast <- forecast(model, h=h)
+autoplot(fcast)
+
+
+#### deze waardes moeten naar samples format maar nog ff geen idee
+test <- as.numeric(list(t(data.frame(fcast))[1,]))
+row <- c(name) + test
 for(num in c(0:149)){
-  
+  # hier komt straks de code in
   
   
 }
 
-
-
-dt = melt
-# 28 days forecasting
-h = 28 
-
-sales_train <- t(sales_train)
 
 
