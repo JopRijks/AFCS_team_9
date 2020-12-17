@@ -15,20 +15,20 @@ price <- data.frame(read_csv("sell_prices_afcs2020.csv"))
 sample_org <- data.frame(read_csv("sample_submission_afcs2020.csv"))
 
 # extra_data
-true_future <- data.frame(read_csv("sales_train_evaluation_afcs2020.csv"))
+total <- data.frame(read_csv("sales_train_evaluation_afcs2020.csv"))
 
 # move back to original working directory
 setwd("..")
 
-validation <- true_future[,c(1887:1914)]
-future <- true_future[,c(1915:1942)]
+
+validation <- total[,c(1915:1942)]
 
 # set forecast days
 h=28
 
 ################################################################
 ######################### Validation ###########################
-####### moving average model  --- Kaggle score : 0.89757 #######
+####### moving average model  --- Kaggle score : 0.89689 #######
 ################################################################
 
 # set sample for the output
@@ -51,7 +51,6 @@ for(num in c(1:149)){
   
   # select all the wanted columns for the forecast
   train <- select(train_draft, sales)
-  train <- head(df, -28)
   
   # forecast model could be changed to wanted model
   model <- arima(as.numeric(train$sales), order=c(0,0,4))
@@ -79,16 +78,12 @@ mean(rmse_total)
 # write csv file for submition
 write.csv(sample, "./output/moving_average_R_validation.csv", row.names = F)
 
-# moving average 1: 0.8694101
-# moving average 2: 0.869171
-# moving average 3: 0.8689296
-# moving average 4: 0.8688903 on kaggle : 0.89689 new
-# moving average 5: 0.8690063
-
 
 ################################################################
-####### moving average model  --- Kaggle score : 0.89757 #######
+####### moving average model  --- Kaggle score : 0.89535 #######
 ################################################################
+
+sales_train <- total
 
 # set sample for the output
 sample <- sample_org
@@ -121,25 +116,6 @@ for(num in c(1:149)){
   sample[num,] <- new_row
 }
 
-
-rmse_total = c()
-for(num in c(1:149)){
-  o = as.list(as.data.frame(t(future[num,])))
-  m = as.list(as.data.frame(as.numeric(t(sample[num,2:29]))))
-  o <- as.numeric(as.character(unlist(o[[1]])))
-  m <- as.numeric(as.character(unlist(m[[1]])))
-  rmse_save = rmse(m,o)
-  rmse_total <- c(rmse_total, rmse_save)
-}
-mean(rmse_total)
-
 # write csv file for submition
 write.csv(sample, "./output/moving_average_R.csv", row.names = F)
-
-# moving average 1: 0.8694101
-# moving average 2: 0.869171
-# moving average 3: 0.8689296
-# moving average 4: 0.8688903 on kaggle : 0.89689 new
-# moving average 5: 0.8690063
-
 
