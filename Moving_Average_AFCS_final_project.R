@@ -201,7 +201,7 @@ write.csv(sample, "./output/additive_winterholt_R.csv", row.names = F)
 
 ################################################################
 ######################### Validation ###########################
-########## SNAIVE forecast  --- Kaggle score : 0.????? #########
+########### SNAIVE forecast  --- RMSE score : 0.????? ##########
 ################################################################
 
 
@@ -214,7 +214,7 @@ for(num in c(1:149)){
   s_train <- data.frame(s_train[-1,])
   colnames(s_train) = "sales" #name
   
-  train <- ts(s_train, frequency = 365, start = 1)
+  train <- ts(s_train, frequency = 365, start = c(2011,29))
   # forecast model could be changed to wanted model
   model <- snaive(train)
   fcast <- forecast(model, h=h)
@@ -224,6 +224,7 @@ for(num in c(1:149)){
   new_row <- c(sample[num,1], row)
   sample[num,] <- new_row
 }
+autoplot(fcast)
 
 
 rmse_total = c()
@@ -239,9 +240,6 @@ mean(rmse_total)
 
 
 autoplot(fcast)
-# write csv file for submition
-write.csv(sample, "./output/snaive_R_validation.csv", row.names = F)
-
 
 ################################################################
 ########## SNAIVE forecast  --- Kaggle score : 0.????? #########
@@ -258,7 +256,7 @@ for(num in c(1:149)){
   s_train <- data.frame(s_train[-1,])
   colnames(s_train) = "sales" #name
   
-  train <- ts(s_train, frequency = 365, start = 1)
+  train <- ts(s_train, frequency = 365, start = c(2011, 29))
   # forecast model could be changed to wanted model
   model <- snaive(train)
   fcast <- forecast(model, h=h)

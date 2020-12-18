@@ -75,7 +75,7 @@ for(num in c(1:149)){
   
   row <- as.numeric(t(data.frame(forecast$yhat))[1,])
   new_row <- c(sample[num,1], tail(row,28))
-  sample[num,] <- new_row
+  sample[num,] <- new_row 
 }
 
 rmse_total = c()
@@ -88,7 +88,6 @@ for(num in c(1:149)){
   rmse_total <- c(rmse_total, rmse_save)
 }
 mean(rmse_total)
-
 
 
 ################################################################
@@ -166,11 +165,15 @@ events_df <- data_frame(
 
 holidays <- bind_rows(snap_ca_df, events_df)
 
+holidays<- events_df
 
 ################################################################
 ######################### Validation ###########################
 ##### Holiday Prophet forecast  --- RMSE score : 0.8969995 #####
 ################################################################
+
+#### only snap_ca rmse: 0.9001231
+#### only events  rmse: 0.9005633
 
 # set sample for the output
 sample <- sample_org
