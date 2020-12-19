@@ -59,6 +59,7 @@ for(num in c(1:149)){
   new_data <- merge.data.frame(calendar, price_select, by.x = "wm_yr_wk", by.y = "wm_yr_wk")
   new_data$d <- as.integer(gsub('d_', '', new_data$d))
   new_data <- filter(new_data, d > 1913)
+  new_data <- filter(new_data, d< 1942)
   new_data <- select(new_data, sell_price, snap_CA)
   new_data$sell_price =  as.numeric(as.character(new_data$sell_price))
   
