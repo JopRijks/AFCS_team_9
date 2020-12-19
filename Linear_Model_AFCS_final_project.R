@@ -73,16 +73,23 @@ for(num in c(1:149)){
   sample[num,] <- new_row
 }
 
+ltsm <- read_csv("ltsm.csv")
+
 rmse_total = c()
+MAE_total = c()
+smape_total = c()
 for(num in c(1:149)){
   o = as.list(as.data.frame(t(validation[num,])))
-  m = as.list(as.data.frame(as.numeric(t(sample[num,2:29]))))
+  m = as.list(as.data.frame((t(ltsm[num,2:29]))))
   o <- as.numeric(as.character(unlist(o[[1]])))
   m <- as.numeric(as.character(unlist(m[[1]])))
-  rmse_save = rmse(m,o)
-  rmse_total <- c(rmse_total, rmse_save)
+  rmse_total <- c(rmse_total, rmse(m,o))
+  MAE_total <- c(MAE_total, mae(m,o))
+  smape_total <- c(smape_total, smape(m,o))
 }
 mean(rmse_total)
+mean(MAE_total)
+mean(smape_total)
 
 ################################################################
 ########## linear model  --- Kaggle score : 0.?????  ###########
