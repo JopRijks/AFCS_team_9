@@ -29,6 +29,7 @@ h=28
 ##### dynamic regression model  --- Kaggle score : 0.????? #####
 ################################################################
 
+
 # set sample for the output
 sample <- sample_org
 for(num in c(1:149)){
