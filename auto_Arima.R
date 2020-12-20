@@ -70,6 +70,7 @@ mean(rmse_total)
 mean(MAE_total)
 mean(smape_total)
 
+write.csv(sample, "./val_for/auto_arima_R.csv", row.names = F)
 
 ################################################################
 ######### Auto ARIMA model  --- Kaggle score : 0.89535 #########

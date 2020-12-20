@@ -73,7 +73,7 @@ for(num in c(1:149)){
   sample[num,] <- new_row
 }
 
-ltsm <- read_csv("ltsm.csv")
+
 
 rmse_total = c()
 MAE_total = c()
@@ -90,7 +90,7 @@ for(num in c(1:149)){
 mean(rmse_total)
 mean(MAE_total)
 mean(smape_total)
-
+write.csv(sample, "./val_for/Linear_model.csv", row.names = F)
 ################################################################
 ########## linear model  --- Kaggle score : 0.?????  ###########
 ################################################################
