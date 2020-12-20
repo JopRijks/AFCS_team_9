@@ -122,7 +122,7 @@ fcast2 <- forecast(model_2, h=h)
 ```
 
 ```{r}
-png("final_forecast_ma4_decomposition_product_7.png",30,15, units="cm", res=1200)
+png("ma4_final_smaller",10,5, units="cm", res=1200)
 autoplot(fcast2, series = "moving average forecast (4)") + coord_cartesian(xlim = c(2016.0,2016.4))
 dev.off()
 ```
