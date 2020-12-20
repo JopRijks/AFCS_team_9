@@ -132,10 +132,17 @@ autoplot(val, series = "actual data") +
 ```{r}
 time_series <- as.data.frame(t(total[num,2:1942]))
 time_series <- ts(time_series[[1]], start = c(2011,29), frequency = 365.25)
-stl_decomposition <- stl(time_series, s.window = 13)
-png("results_models_validation.png",30,15, units="cm", res=1200)
+stl_decomposition <- mstl(time_series, s.window = 13)
+autoplot(stl_decomposition)
+png("mstl_decomposition_product_7.png",30,15, units="cm", res=1200)
 autoplot(stl_decomposition)
 dev.off()
+```
+```{r}
+time_series <- as.data.frame(t(total[num,2:1942]))
+time_series <- ts(time_series[[1]], start = c(2011,29), frequency = 365)
+stl_decomposition <- mstl(time_series, s.window = 13)
+autoplot(stl_decomposition)
 ```
 
 title: "Untitled"
