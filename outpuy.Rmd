@@ -44,6 +44,15 @@ h=28
 
 ```
 
+
+```{r}
+
+```
+
+
+
+
+
 ```{r}
 num = 7
 s_train <- t(sales_train[num,])
@@ -83,8 +92,8 @@ prophol <- ts(as.data.frame(t(prophol[num,2:29])), start = c(2016, 116), frequen
 ```
 
 ```{r}
-png("plot.png",30,15, units="cm", res=1200)
-autoplot(val) + 
+png("results_models_validation.png",30,15, units="cm", res=1200)
+autoplot(val, series = "actual data") + 
   autolayer(ar1, series = "auto regressive 1") + 
   autolayer(ar4, series = "auto regressive 4") + 
   autolayer(ma1, series = "moving average 1") + 
@@ -102,7 +111,31 @@ dev.off()
 
 
 ```{r}
+autoplot(val, series = "actual data") + 
+  autolayer(ar1, series = "auto regressive 1") + 
+  autolayer(ar4, series = "auto regressive 4") + 
+  autolayer(ma1, series = "moving average 1") + 
+  autolayer(ma4, series = "moving average 4") +
+  autolayer(snaive, series = "snaive") + 
+  autolayer(lm, series = "linear model") + 
+  autolayer(aa, series = "auto arima") + 
+  autolayer(prop, series = "Prophet ") + 
+  autolayer(prophol, series = "Prophet holiday") + 
+  ggtitle("The prediction of the sales per day for each model on the validation data") + 
+  ylab("sales per day") + xlab("time in days") +
+  theme(legend.position="bottom")
+```
 
+
+
+
+```{r}
+time_series <- as.data.frame(t(total[num,2:1942]))
+time_series <- ts(time_series[[1]], start = c(2011,29), frequency = 365.25)
+stl_decomposition <- stl(time_series, s.window = 13)
+png("results_models_validation.png",30,15, units="cm", res=1200)
+autoplot(stl_decomposition)
+dev.off()
 ```
 
 title: "Untitled"
