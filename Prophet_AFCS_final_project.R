@@ -93,7 +93,7 @@ for(num in c(1:149)){
 mean(rmse_total)
 mean(MAE_total)
 mean(smape_total)
-
+write.csv(sample, "./val_for/prophet_r.csv", row.names = F)
 
 ################################################################
 ######### Prophet forecast  --- Kaggle score : 0.94112 #########
@@ -236,7 +236,7 @@ for(num in c(1:149)){
 mean(rmse_total)
 mean(MAE_total)
 mean(smape_total)
-
+write.csv(sample, "./val_for/prophet_r_hol.csv", row.names = F)
 
 ################################################################
 ##### Holiday Prophet forecast  --- Kaggle score : 0.94164 #####

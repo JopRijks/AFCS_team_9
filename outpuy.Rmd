@@ -1,0 +1,131 @@
+---
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+library(fpp2)
+library(readr)
+library(dplyr)
+library(tidyr)
+library(purrr)
+library(zoo)
+library(Metrics)
+library(prophet)
+library(reshape2)
+library(cowplot)
+
+
+# move to data directory for loading the data
+setwd("./Data")
+
+# read in all the data
+calendar <- read_csv("calendar_afcs2020.csv")
+sales_train <- read_csv("sales_train_validation_afcs2020.csv")
+price <- data.frame(read_csv("sell_prices_afcs2020.csv"))
+sample_org <- data.frame(read_csv("sample_submission_afcs2020.csv"))
+
+# extra_data
+total <- data.frame(read_csv("sales_train_evaluation_afcs2020.csv"))
+
+# move back to original working directory
+setwd("..")
+
+
+validation <- total[,c(1915:1942)]
+
+# set forecast days
+h=28
+
+```
+
+```{r}
+num = 7
+s_train <- t(sales_train[num,])
+name <- substr(as.character(s_train[1,]), start = 1, stop = 13)
+s_train <- data.frame(s_train[-1,])
+colnames(s_train) = "value" #name
+train <- ts(s_train, frequency = 362.25, start = c(2011,29))
+autoplot(train) + ggtitle("Title") + ylab("amount of sales") + xlab("time in days")
+```
+```{r, HOLD =TRUE, echo = FALSE, results = 'hide', message = FALSE}
+setwd("./val_for")
+ar1 <- read_csv("auto_regressive_1_R.csv")
+ar4 <- read_csv("auto_regressive_4_R.csv")
+ma1 <- read_csv("moving_average_1_R.csv")
+ma4 <- read_csv("moving_average_4_R.csv")
+snaive <- read_csv("snaive_R.csv")
+lm <- read_csv("linear_model.csv")
+aa <- read_csv("auto_arima_R.csv")
+prop <- read_csv("prophet_r.csv")
+prophol <- read_csv("prophet_r_hol.csv")
+setwd("..")  
+num = 7 
+val <- ts(as.data.frame(t(validation[num,])), start = c(2016, 116), frequency = 365.25)
+ar1 <- ts(as.data.frame(t(ar1[num,2:29])), start = c(2016, 116), frequency = 365.25)
+ar4 <- ts(as.data.frame(t(ar4[num,2:29])), start = c(2016, 116), frequency = 365.25)
+ma1 <- ts(as.data.frame(t(ma1[num,2:29])), start = c(2016, 116), frequency = 365.25)
+ma4 <- ts(as.data.frame(t(ma4[num,2:29])), start = c(2016, 116), frequency = 365.25)
+snaive <- ts(as.data.frame(t(snaive[num,2:29])), start = c(2016, 116), frequency = 365.25)
+lm <- ts(as.data.frame(t(lm[num,2:29])), start = c(2016, 116), frequency = 365.25)
+aa <- ts(as.data.frame(t(aa[num,2:29])), start = c(2016, 116), frequency = 365.25)
+prop <- ts(as.data.frame(t(prop[num,2:29])), start = c(2016, 116), frequency = 365.25)
+prophol <- ts(as.data.frame(t(prophol[num,2:29])), start = c(2016, 116), frequency = 365.25)
+```
+```{r}
+options(repr.plot.width=20, repr.plot.height=10)
+```
+
+```{r}
+autoplot(val) + 
+  autolayer(ar1, series = "auto regressive 1") + 
+  autolayer(ar4, series = "auto regressive 4") + 
+  autolayer(ma1, series = "moving average 1") + 
+  autolayer(ma4, series = "moving average 4") +
+  autolayer(snaive, series = "snaive") + 
+  autolayer(lm, series = "linear model") + 
+  autolayer(aa, series = "auto arima") + 
+  autolayer(prop, series = "Prophet ") + 
+  autolayer(prophol, series = "Prophet holiday") + 
+  ggtitle("The prediction of the sales per day for each model on the validation data") + 
+  ylab("sales per day") + xlab("time in days") +
+  theme(legend.position="bottom")
+```
+
+
+```{r}
+
+```
+
+title: "Untitled"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

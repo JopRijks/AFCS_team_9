@@ -53,7 +53,7 @@ for(num in c(1:149)){
   train <- select(train_draft, sales)
   
   # forecast model could be changed to wanted model
-  model <- arima(as.numeric(train$sales), order=c(4,0,0))
+  model <- arima(as.numeric(train$sales), order=c(0,0,1))
   fcast <- forecast(model, h=h)
   autoplot(fcast)
   
@@ -78,6 +78,8 @@ for(num in c(1:149)){
 mean(rmse_total)
 mean(MAE_total)
 mean(smape_total)
+
+write.csv(sample, "./val_for/moving_average_1_R.csv", row.names = F)
 
 ################################################################
 ####### moving average model  --- Kaggle score : 0.89535 #######
@@ -170,7 +172,7 @@ mean(MAE_total)
 mean(smape_total)
 
 autoplot(fcast)
-
+write.csv(sample, "./val_for/snaive_R.csv", row.names = F)
 ################################################################
 ########## SNAIVE forecast  --- Kaggle score : 0.????? #########
 ################################################################
