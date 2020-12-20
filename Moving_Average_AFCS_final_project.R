@@ -109,7 +109,7 @@ for(num in c(1:149)){
   train <- select(train_draft, sales)
   
   # forecast model could be changed to wanted model
-  model <- arima(as.numeric(train$sales), order=c(1,0,0))
+  model <- arima(as.numeric(train$sales), order=c(0,0,4))
   fcast <- forecast(model, h=h)
   autoplot(fcast)
   # create wanted output format

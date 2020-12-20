@@ -98,6 +98,32 @@ autoplot(val) +
 
 
 ```{r}
+sales_train <- total
 
+# set sample for the output
+sample <- sample_org
+
+# select from train file only the selected row
+s_train <- t(sales_train[num,])
+name <- substr(as.character(s_train[1,]), start = 1, stop = 13)
+s_train <- data.frame(s_train[-1,])
+colnames(s_train) = "sales" #name
+
+
+# select all the wanted columns for the forecast
+train <- select(s_train, sales)
+train <- ts(train, start=c(2011,29), frequency = 365)
+# forecast model could be changed to wanted model
+model <- auto.arima(train)
+model_2 <- arima(train, order=c(0,0,4))
+fcast <- forecast(model, h=h)
+fcast2 <- forecast(model_2, h=h)
+
+```
+
+```{r}
+png("final_forecast_ma4_decomposition_product_7.png",30,15, units="cm", res=1200)
+autoplot(fcast2, series = "moving average forecast (4)") + coord_cartesian(xlim = c(2016.0,2016.4))
+dev.off()
 ```
 
