@@ -125,5 +125,25 @@ fcast2 <- forecast(model_2, h=h)
 png("ma4_final_smaller",10,5, units="cm", res=1200)
 autoplot(fcast2, series = "moving average forecast (4)") + coord_cartesian(xlim = c(2016.0,2016.4))
 dev.off()
+
+
+```
+
+
+```{r}
+time_series <- as.data.frame(t(total[num,2:1942]))
+time_series <- ts(time_series[[1]], start = c(2011,29), frequency = 365.25)
+stl_decomposition <- mstl(time_series, s.window = 13)
+autoplot(stl_decomposition)
+png("mstl_decomposition_product_7.png",30,15, units="cm", res=1200)
+autoplot(stl_decomposition)
+dev.off()
+```
+
+```{r}
+time_series <- as.data.frame(t(total[num,2:1942]))
+time_series <- ts(time_series[[1]], start = c(2011,29), frequency = 365)
+stl_decomposition <- mstl(time_series, s.window = 13)
+autoplot(stl_decomposition)
 ```
 
