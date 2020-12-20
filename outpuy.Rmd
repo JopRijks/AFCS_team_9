@@ -77,11 +77,13 @@ aa <- ts(as.data.frame(t(aa[num,2:29])), start = c(2016, 116), frequency = 365.2
 prop <- ts(as.data.frame(t(prop[num,2:29])), start = c(2016, 116), frequency = 365.25)
 prophol <- ts(as.data.frame(t(prophol[num,2:29])), start = c(2016, 116), frequency = 365.25)
 ```
+
 ```{r}
-options(repr.plot.width=20, repr.plot.height=10)
+
 ```
 
 ```{r}
+png("plot.png",30,15, units="cm", res=1200)
 autoplot(val) + 
   autolayer(ar1, series = "auto regressive 1") + 
   autolayer(ar4, series = "auto regressive 4") + 
@@ -95,6 +97,7 @@ autoplot(val) +
   ggtitle("The prediction of the sales per day for each model on the validation data") + 
   ylab("sales per day") + xlab("time in days") +
   theme(legend.position="bottom")
+dev.off()
 ```
 
 
